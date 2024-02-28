@@ -1,0 +1,107 @@
+.navbar-container {
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0px 20px;
+  color: black;
+  position: fixed;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.navbar {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  padding: 5px 0px;
+  justify-content: space-around;
+}
+.logo {
+  height: 50px;
+}
+.navbar-linksBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.nav-links {
+  text-decoration: none;
+  color: black;
+}
+.nav-search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid lightgray;
+  padding: 4px 5px;
+  border-radius: 20px;
+  color: grey;
+}
+.nav-search {
+  border: none;
+  outline: none;
+  padding: 2px;
+  font-size: 12px;
+}
+.navbar-buttons {
+  display: flex;
+  gap: 15px;
+  font-size: 25px;
+}
+.navbar-cartBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-cartBedge {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: orangered;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 2;
+  margin-left: -10px;
+  margin-top: -18px;
+}
+.navbar-hamburger {
+  cursor: pointer;
+  display: none;
+}
+.navbar-Hamburger-linksBox {
+  display: none;
+}
+.navbar-hamburger-open {
+  height: fit-content;
+}
+@media only screen and (max-width: 768px) {
+  .navbar-linksBox {
+    display: none;
+  }
+  .navbar {
+    justify-content: space-between;
+  }
+  .navbar-hamburger {
+    display: flex;
+  }
+  .navbar-Hamburger-linksBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0px;
+    gap: 15px;
+    width: 100%;
+  }
+  .nav-search {
+    width: 250px;
+  }
+}
