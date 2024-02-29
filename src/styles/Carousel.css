@@ -1,0 +1,15 @@
+.carousel-container {
+  /* width: 100vw; */
+  height: 540px;
+  margin-top: 50px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  object-fit: cover;
+}
+.carousel-images {
+  width: 100%;
+  transition: opacity 0.5s ease-in-out;
+}
