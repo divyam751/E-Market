@@ -1,7 +1,23 @@
 .home-container {
   width: 100%;
-  height: 100vh;
-  /* padding-top: 60px; */
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.home-brands-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: fit-content;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.home-heading {
+  font-size: 30px;
+  margin-top: 40px;
+  margin-left: 40px;
+  font-weight: bold;
 }

@@ -1,6 +1,6 @@
 .carousel-container {
   /* width: 100vw; */
-  height: 540px;
+  max-height: 540px;
   margin-top: 50px;
   display: flex;
   align-items: flex-start;
