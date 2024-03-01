@@ -10,6 +10,7 @@
   color: black;
   position: fixed;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  z-index: 10;
 }
 .navbar {
   width: 90%;
