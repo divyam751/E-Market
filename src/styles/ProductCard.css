@@ -1,19 +1,17 @@
 .productCard-container {
   width: 250px;
-  height: 43 0px;
+  height: 430px;
   display: flex;
   flex-direction: column;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  padding: 5px;
+  padding: 10px;
 }
 .productCard-parent {
   width: 250px;
-  height: 43 0px;
+  height: 430px;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  padding: 5px;
   margin-top: -50px;
 }
 .productCard-image {

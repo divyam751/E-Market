@@ -18,7 +18,7 @@ const productSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
-      state.loading = true;
+      state.loading = false;
       state.apiData = payload;
     });
     builder.addCase(getProducts.rejected, (state, error) => {

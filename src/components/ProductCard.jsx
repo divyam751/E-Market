@@ -1,33 +1,38 @@
 import React from "react";
 import "../styles/ProductCard.css";
 import Badge from "./Badge";
-const ProductCard = () => {
-  const title = "Tranding";
+const ProductCard = ({ item }) => {
+  console.log(item);
+  const discount = Math.floor(((item.mrp - item.price) / item.mrp) * 100);
   return (
     <div className="productCard-container">
-      <Badge title={title} />
+      {item.badge !== null ? (
+        <Badge title={item.badge} />
+      ) : (
+        <div className="badge-container"></div>
+      )}
       <div className="productCard-parent">
         <img
           className="productCard-image"
-          src="https://assets.myntassets.com/f_webp,dpr_2.0,q_60,w_210,c_limit,fl_progressive/assets/images/10410504/2019/9/19/713fcc65-75fc-4c6c-9771-aff5867b15e41568882066948-WROGN-Men-Tshirts-4691568882065599-1.jpg"
-          alt="Product Image"
+          src={item.image[0]}
+          alt={item.brand}
         />
         <div className="productCard-productRatingBox">
-          <span className="productCard-productRating">{`4.1 ★  | 1k`}</span>
+          <span className="productCard-productRating">{`${item.rating.rate} ★  | ${item.rating.count} `}</span>
         </div>
         <div className="productCard-info">
           <div className="productCard-wishlistBox">
             <button className="productCard-wishlistBtn">♡ WISHLIST</button>
           </div>
-          <p className="productCard-productName">WROGN</p>
-          <p className="productCard-productDesc">
-            Slim Fit Polo Collar Pure Cotton T-Shirt for Men
-          </p>
+          <p className="productCard-productName">{item.brand}</p>
+          <p className="productCard-productDesc">{item.title}</p>
           <div className="productCard-productPriceContainer">
-            <span className="productCard-productPrice">Rs. 824</span>
-            <span className="productCard-productCutOfPrice">Rs. 1499</span>
+            <span className="productCard-productPrice">Rs. {item.price}</span>
+            <span className="productCard-productCutOfPrice">
+              Rs. {item.mrp}
+            </span>
             <span className="productCard-productDiscount">
-              {`(${Math.floor(((1499 - 824) / 1499) * 100) + `% OFF`})`}
+              {`(${discount + `% OFF`})`}
             </span>
           </div>
         </div>
