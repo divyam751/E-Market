@@ -1,0 +1,103 @@
+.productCard-container {
+  width: 250px;
+  height: 43 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 5px;
+}
+.productCard-parent {
+  width: 250px;
+  height: 43 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 5px;
+  margin-top: -50px;
+}
+.productCard-image {
+  width: 250px;
+}
+.productCard-info {
+  display: flex;
+  flex-direction: column;
+  /* margin: 15px; */
+  padding: 10px 15px;
+  z-index: 1;
+  overflow: hidden;
+  gap: 5px;
+  /* margin-top: -40px; */
+  margin-top: 10px;
+  background-color: white;
+}
+.productCard-wishlistBox {
+  width: 100%;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.productCard-wishlistBtn {
+  font-size: 20px;
+  width: 95%;
+  margin-left: -15px;
+  background-color: white;
+  border: 1px solid;
+  padding: 5px;
+  cursor: pointer;
+}
+.productCard-productRatingBox {
+  margin-top: -40px;
+  margin-left: 10px;
+}
+.productCard-productRating {
+  background: rgba(255, 255, 255, 0.534);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.productCard-productName {
+  font-weight: bold;
+}
+.productCard-productDesc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.productCard-productPriceContainer {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+.productCard-productPrice {
+  font-weight: bold;
+}
+.productCard-productCutOfPrice {
+  text-decoration: line-through;
+  color: grey;
+}
+.productCard-productDiscount {
+  color: orange;
+}
+
+.productCard-container:hover {
+  .productCard-info {
+    margin-top: -40px;
+  }
+  .productCard-wishlistBox {
+    display: flex;
+  }
+  transition: all ease-in 0.5ms;
+}
+
+.badge {
+  width: 100px;
+  background-color: palevioletred;
+  margin-top: 10px;
+  position: fixed;
+}
