@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/ProductCard.css";
 import Badge from "./Badge";
 const ProductCard = ({ item }) => {
-  console.log(item);
+  // console.log(item);
   const discount = Math.floor(((item.mrp - item.price) / item.mrp) * 100);
   return (
     <div className="productCard-container">
