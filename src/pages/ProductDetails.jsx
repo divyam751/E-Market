@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/ProductDetails.css";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaExchangeAlt, FaShoppingCart, FaTruck } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
+import { GiPayMoney } from "react-icons/gi";
+
 const ProductDetails = () => {
+  const [pincode, setPincode] = useState(false);
   return (
     <div className="productDetails-container">
       <div className="productDetails-imageSection">
@@ -34,6 +38,7 @@ const ProductDetails = () => {
         <div className="productDetails-produtRatingBox">
           <p className="productDetails-produtRatings">4.1 ★ | 7.6k Ratings</p>
         </div>
+
         <hr />
         <div className="productDetails-produtPriceBox">
           <span className="productDetails-produtPrice">₹399</span>
@@ -56,6 +61,55 @@ const ProductDetails = () => {
             Add To Cart
           </button>
           <button className="productDetails-addToCartBtn">♡ WISHLIST</button>
+        </div>
+        <hr />
+        <div className="productDetails-produtDetails">
+          <h3>PRODUCT DETAILS</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+            animi sint? Fugiat eum perspiciatis totam, deserunt quo assumenda
+            repellat consectetur tempore unde alias ut eveniet incidunt
+            laboriosam corporis maxime impedit.
+          </p>
+        </div>
+        <hr />
+        <div className="productDetails-produtDelivery">
+          <p className="productDetails-produtDeliveryHeading">
+            DELIVERY OPTIONS <FaTruck />
+          </p>
+          <div className="productDetails-pincodeBox">
+            <input
+              type="number"
+              className="productDetails-pincode"
+              maxLength={2}
+            />
+            <span
+              className="productDetails-pincodeCheckBtn"
+              onClick={() => setPincode((prev) => !prev)}
+            >
+              {pincode ? "Change" : "Check"}
+            </span>
+          </div>
+
+          {pincode ? (
+            <div className="productDetails-productDeliveryTime">
+              <p className="productDetails-productDeliveryDetails">
+                <TbTruckDelivery size={30} />
+                Get it with in {Math.floor(Math.random() * 4) + 2} Days{" "}
+              </p>
+              <p className="productDetails-productDeliveryDetails">
+                {" "}
+                <GiPayMoney size={30} />
+                Pay on delivery available{" "}
+              </p>
+              <p className="productDetails-productDeliveryDetails">
+                <FaExchangeAlt size={30} />
+                Easy 14 days return & exchange available{" "}
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
