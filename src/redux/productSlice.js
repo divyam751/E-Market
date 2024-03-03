@@ -12,6 +12,9 @@ const productSlice = createSlice({
   initialState: {
     apiData: [],
     filteredProducts: [],
+    selectedProduct: [],
+    cart: [],
+    wishlist: [],
     loading: false,
   },
   reducers: {
@@ -67,6 +70,27 @@ const productSlice = createSlice({
           break;
       }
     },
+    productQuery: (state, { payload }) => {
+      state.selectedProduct = { ...payload };
+    },
+
+    addToCart: (state, { payload }) => {
+      const existingItem = state.cart.find((item) => item.id === payload.id);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        payload = { ...payload, quantity: 1 };
+        state.cart = [...state.cart, { ...payload }];
+      }
+    },
+    addToWishlist: (state, { payload }) => {
+      const existingItem = state.cart.find((item) => item.id === payload.id);
+
+      if (!existingItem) {
+        state.wishlist = [...state.wishlist, { ...payload }];
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -84,6 +108,12 @@ const productSlice = createSlice({
   },
 });
 
-export const { searchQuery, setCustomFilter, sortByQuery } =
-  productSlice.actions;
+export const {
+  searchQuery,
+  setCustomFilter,
+  sortByQuery,
+  productQuery,
+  addToCart,
+  addToWishlist,
+} = productSlice.actions;
 export default productSlice.reducer;

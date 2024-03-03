@@ -1,11 +1,22 @@
 import React from "react";
 import "../styles/ProductCard.css";
 import Badge from "./Badge";
+import { useDispatch } from "react-redux";
+import { productQuery } from "../redux/productSlice";
+import { useNavigate } from "react-router-dom";
 const ProductCard = ({ item }) => {
-  // console.log(item);
   const discount = Math.floor(((item.mrp - item.price) / item.mrp) * 100);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = (item) => {
+    dispatch(productQuery(item));
+    navigate("/products/details");
+    console.log(item);
+  };
   return (
-    <div className="productCard-container">
+    <div className="productCard-container" onClick={() => handleClick(item)}>
       {item.badge !== null ? (
         <Badge title={item.badge} />
       ) : (

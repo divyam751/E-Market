@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/Navbar.css";
 import logo from "../assets/Logo.png";
 import { Link } from "react-router-dom";
-import { FaSearch, FaShoppingCart, FaUserAlt } from "react-icons/fa";
+import { FaHeart, FaSearch, FaShoppingCart, FaUserAlt } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,8 @@ const Navbar = () => {
   const [openHamburger, setOpenHamburger] = useState(false);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
+
+  const { cart, wishlist } = useSelector((state) => state.products);
 
   const debounce = (func, delay) => {
     let timeout;
@@ -37,7 +39,7 @@ const Navbar = () => {
   const handleHamburger = () => {
     setOpenHamburger((prev) => !prev);
   };
-  const itemCount = 6;
+
   // console.log(query);
   // console.log(filteredProducts);
   return (
@@ -71,12 +73,24 @@ const Navbar = () => {
           <Link className="nav-links" to="/login">
             <FaUserAlt />
           </Link>
+          <Link className="nav-links" to="/wishlist">
+            <div className="navbar-cartBox">
+              <FaHeart />
+
+              <div className="navbar-cartBedge">
+                {wishlist?.length !== 0 ? wishlist.length : 0}
+              </div>
+            </div>
+          </Link>
           <Link className="nav-links" to="/cart">
             <div className="navbar-cartBox">
               <FaShoppingCart />
-              <div className="navbar-cartBedge">{itemCount}</div>
+              <div className="navbar-cartBedge">
+                {cart?.length !== 0 ? cart.length : 0}
+              </div>
             </div>
           </Link>
+
           <div className="navbar-hamburger" onClick={handleHamburger}>
             {openHamburger ? <IoClose /> : <GiHamburgerMenu />}
           </div>

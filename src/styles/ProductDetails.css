@@ -20,6 +20,9 @@
 .productDetails-productImages {
   width: 400px;
 }
+.productDetails-productImages:hover {
+  cursor: pointer;
+}
 /* Content Section */
 .productDetails-contentSection {
   width: clamp(320px, 80%, 600px);
@@ -80,6 +83,11 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.selectedSizeButton {
+  background-color: green;
+  color: white;
+  border: 2px solid green;
 }
 .productDetails-produtAddtoCartButtonBox {
   display: flex;
