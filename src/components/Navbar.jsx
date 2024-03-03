@@ -12,7 +12,6 @@ const Navbar = () => {
   const [openHamburger, setOpenHamburger] = useState(false);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-  const { filteredProducts } = useSelector((state) => state.products);
 
   const debounce = (func, delay) => {
     let timeout;

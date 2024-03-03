@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import "../styles/Product.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, setCustomFilter } from "../redux/productSlice";
+import {
+  getProducts,
+  setCustomFilter,
+  sortByQuery,
+} from "../redux/productSlice";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -32,6 +36,10 @@ const Product = () => {
     console.log(name, checked);
     setFilters({ ...filters, [name]: checked });
   };
+  const handleSortBy = (e) => {
+    dispatch(sortByQuery(e.target.value));
+    // console.log(e.target.value);
+  };
   // console.log(filters);
   useEffect(() => {
     dispatch(getProducts());
@@ -39,6 +47,8 @@ const Product = () => {
   }, []);
   useEffect(() => {
     dispatch(setCustomFilter(filters));
+    const productSortBy = document.getElementById("productSortBy");
+    productSortBy.value = "Recommended";
   }, [dispatch, filters]);
 
   // console.log(apiData);
@@ -51,8 +61,13 @@ const Product = () => {
         <h1>FILTERS</h1>
         <label className="productPage-sortingBox">
           Sort by :
-          <select name="sort" className="productPage-sortFilter">
-            <option value="">Recommended</option>
+          <select
+            name="sort"
+            id="productSortBy"
+            className="productPage-sortFilter"
+            onChange={handleSortBy}
+          >
+            <option value="Recommended">Recommended</option>
             <option value="HighToLow">Price - High to Low</option>
             <option value="LowToHigh">Price - Low to High</option>
           </select>

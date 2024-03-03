@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getProducts = createAsyncThunk("product/getProduct", async () => {
   const response = await fetch("http://localhost:3001/products");
   const productData = await response.json();
-  console.log("getProducts called");
+  // console.log("getProducts called");
   return productData;
 });
 
@@ -25,11 +25,12 @@ const productSlice = createSlice({
           item.description.toLowerCase().includes(query)
       );
     },
+
     setCustomFilter: (state, { payload }) => {
-      console.log("setCustomFilter called here", payload);
-      state.filteredProducts = []; // Reset the filteredProducts array
+      // console.log("setCustomFilter called here", payload);
+      state.filteredProducts = [];
       for (let query in payload) {
-        console.log("query: ", query.toLowerCase());
+        // console.log("query: ", query.toLowerCase());
         if (payload[query]) {
           const data = state.apiData.filter(
             (item) =>
@@ -40,6 +41,30 @@ const productSlice = createSlice({
           );
           state.filteredProducts = [...state.filteredProducts, ...data];
         }
+      }
+    },
+    sortByQuery: (state, { payload }) => {
+      switch (payload) {
+        case "HighToLow":
+          state.filteredProducts = (
+            state.filteredProducts.length !== 0
+              ? [...state.filteredProducts]
+              : [...state.apiData]
+          ).sort((a, b) => b.price - a.price);
+          break;
+        case "LowToHigh":
+          state.filteredProducts = (
+            state.filteredProducts.length !== 0
+              ? [...state.filteredProducts]
+              : [...state.apiData]
+          ).sort((a, b) => a.price - b.price);
+          break;
+        case "Recommended":
+          state.filteredProducts =
+            state.filteredProducts.length !== 0
+              ? [...state.filteredProducts]
+              : [...state.apiData];
+          break;
       }
     },
   },
@@ -59,5 +84,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { searchQuery, setCustomFilter } = productSlice.actions;
+export const { searchQuery, setCustomFilter, sortByQuery } =
+  productSlice.actions;
 export default productSlice.reducer;
