@@ -85,10 +85,14 @@ const productSlice = createSlice({
       }
     },
     addToWishlist: (state, { payload }) => {
-      const existingItem = state.cart.find((item) => item.id === payload.id);
+      const existingIndex = state.wishlist.findIndex(
+        (item) => item.id === payload.id
+      );
 
-      if (!existingItem) {
+      if (existingIndex === -1) {
         state.wishlist = [...state.wishlist, { ...payload }];
+      } else {
+        state.wishlist.splice(existingIndex, 1);
       }
     },
   },

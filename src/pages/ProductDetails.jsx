@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ProductDetails.css";
-import { FaExchangeAlt, FaShoppingCart, FaTruck } from "react-icons/fa";
+import {
+  FaExchangeAlt,
+  FaHeart,
+  FaShoppingCart,
+  FaTruck,
+} from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GiPayMoney } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +14,7 @@ import { addToCart, addToWishlist } from "../redux/productSlice";
 const ProductDetails = () => {
   const [pincode, setPincode] = useState(false);
   const [selectedSize, setSelectedSize] = useState("");
+  const [wish, setWish] = useState(false);
   const { selectedProduct, wishlist, cart } = useSelector(
     (state) => state.products
   );
@@ -30,6 +36,14 @@ const ProductDetails = () => {
   };
   console.log("cart", cart);
   console.log("wishlist", wishlist);
+  useEffect(() => {
+    if (wishlist.find((item) => selectedProduct.id === item.id)) {
+      setWish(true);
+    } else {
+      setWish(false);
+    }
+  }, [wishlist]);
+
   return (
     <div className="productDetails-container">
       <div className="productDetails-imageSection">
@@ -107,14 +121,15 @@ const ProductDetails = () => {
             className="productDetails-addToCartBtn"
             onClick={() => handleCart(selectedProduct)}
           >
-            <FaShoppingCart />
+            <FaShoppingCart size={20} />
             Add To Cart
           </button>
           <button
             className="productDetails-addToCartBtn"
             onClick={() => handleWishlist(selectedProduct)}
           >
-            ♡ WISHLIST
+            <FaHeart color={wish ? "red" : "white"} size={20} />
+            WISHLIST
           </button>
         </div>
         <hr />
