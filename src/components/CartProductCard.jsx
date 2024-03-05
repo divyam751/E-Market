@@ -1,24 +1,30 @@
-import React, { useState } from "react";
 import "../styles/CartProductCard.css";
-const CartProductCard = () => {
-  const [count, setCount] = useState(1);
+import { useDispatch } from "react-redux";
+import { updateCartQty } from "../redux/productSlice";
+const CartProductCard = ({ item }) => {
+  const dispatch = useDispatch();
   const handleIncrease = () => {
-    setCount((prev) => prev + 1);
+    dispatch(updateCartQty({ payload: item, action: "ADD" }));
   };
   const handleDecrease = () => {
-    setCount((prev) => prev - 1);
+    dispatch(updateCartQty({ payload: item, action: "SUB" }));
   };
+  const discount = Math.floor(((item?.mrp - item?.price) / item?.mrp) * 100);
   return (
     <div className="cartProductCard-container">
       <img
-        src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/3009070/2018/5/31/f48fa8e4-ee70-4118-8a1d-a898037036bc1527767035968-Roadster-Men-Tshirts-1311527767034405-1.jpg"
+        src={item.image[0]}
         alt="Product Image"
         className="cartProductCard-productImg"
       />
       <div className="cartProductCard-contentBox">
-        <h3>Roadster</h3>
-        <p>Men Maroon Solid Polo Collar T-shirt</p>
-        <p>Rs.419 20% OFF</p>
+        <h3>{item.brand}</h3>
+        <p className="cartProductCard-contentTitle">{item.title}</p>
+        <div className="cartProductCard-priceBox">
+          <p>{`Rs.${item.price} `}</p>
+          <p>{`( ${discount}% OFF)`}</p>
+        </div>
+
         <div className="cartProductCard-numBox">
           <label className="cartProductCard-sizes">
             Size :
@@ -32,10 +38,10 @@ const CartProductCard = () => {
           <label className="cartProductCard-quantity">
             Qty :
             <div className="cartProductCard-qtyCounter">
-              <button onClick={handleDecrease} disabled={count < 2}>
+              <button onClick={handleDecrease} disabled={item.quantity < 2}>
                 -
               </button>
-              <h4> {count} </h4>
+              <h4> {item.quantity} </h4>
               <button onClick={handleIncrease}> + </button>
             </div>
           </label>

@@ -1,7 +1,10 @@
 import React from "react";
 import "../styles/Cart.css";
 import CartProductCard from "../components/CartProductCard";
+import { useSelector } from "react-redux";
 const Cart = () => {
+  const { cart } = useSelector((state) => state.products);
+
   return (
     <div className="cart-container">
       <div className="cart-statusBox">
@@ -9,14 +12,9 @@ const Cart = () => {
       </div>
       <div className="cart-parentBox">
         <div className="cart-productsSection">
-          <CartProductCard />
-          <CartProductCard />
-          <CartProductCard />
-          <CartProductCard />
-          <CartProductCard />
-          <CartProductCard />
-          <CartProductCard />
-          <CartProductCard />
+          {cart?.map((item) => {
+            return <CartProductCard key={item.id} item={item} />;
+          })}
         </div>
         <div className="cart-productAmountSection">
           <p className="cart-subHeadings">COUPONS</p>

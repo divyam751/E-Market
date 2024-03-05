@@ -30,10 +30,8 @@ const productSlice = createSlice({
     },
 
     setCustomFilter: (state, { payload }) => {
-      // console.log("setCustomFilter called here", payload);
       state.filteredProducts = [];
       for (let query in payload) {
-        // console.log("query: ", query.toLowerCase());
         if (payload[query]) {
           const data = state.apiData.filter(
             (item) =>
@@ -84,6 +82,18 @@ const productSlice = createSlice({
         state.cart = [...state.cart, { ...payload }];
       }
     },
+    updateCartQty: (state, { payload }) => {
+      console.log(payload);
+
+      const existingItem = state.cart.find(
+        (item) => item.id === payload.payload.id
+      );
+      if (payload.action === "ADD") {
+        existingItem.quantity += 1;
+      } else {
+        existingItem.quantity -= 1;
+      }
+    },
     addToWishlist: (state, { payload }) => {
       const existingIndex = state.wishlist.findIndex(
         (item) => item.id === payload.id
@@ -119,5 +129,6 @@ export const {
   productQuery,
   addToCart,
   addToWishlist,
+  updateCartQty,
 } = productSlice.actions;
 export default productSlice.reducer;

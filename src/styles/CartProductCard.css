@@ -11,12 +11,21 @@
 }
 .cartProductCard-contentBox {
   display: flex;
+  width: 300px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 5px;
   padding-top: 10px;
 }
+.cartProductCard-contentTitle {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cartProductCard-priceBox,
 .cartProductCard-numBox,
 .cartProductCard-sizes,
 .cartProductCard-quantity {
