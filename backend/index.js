@@ -2,6 +2,7 @@ const express = require("express");
 const { ENDPOINT, PORT, CORS_ORIGIN } = require("./constants");
 const { ConnectDB } = require("./config/db");
 const cors = require("cors");
+const { userRouter } = require("./routes/user.routes");
 
 const app = express();
 
@@ -13,10 +14,15 @@ app.use(
 );
 app.use(express.json());
 
+// API Home Route
 app.get(`${ENDPOINT}/`, (req, res) => {
   res.status(200).send({ message: "Api home route" });
 });
 
+// Other routes
+app.use(`${ENDPOINT}/user`, userRouter);
+
+// Database connection and server
 ConnectDB()
   .then(() => {
     app.listen(PORT, () => {
