@@ -116,6 +116,331 @@ This API provides endpoints for user registration, user login, and retrieving us
   }
   ```
 
+### Cart Endpoints
+
+#### Add a Product to the Cart
+
+- **Endpoint**: `POST /api/v1/cart/add`
+- **Description**: Adds a product to the user's cart.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "productId": "product_id",
+    "quantity": 2
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Product added to cart successfully."
+  }
+  ```
+
+#### Get the User's Cart
+
+- **Endpoint**: `GET /api/v1/cart/`
+- **Description**: Retrieves the user's cart.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+    "message": "Cart retrieved successfully.",
+    "cart": {
+      "products": [
+        {
+          "productId": "product_id",
+          "quantity": 2
+        }
+      ]
+    }
+  }
+  ```
+
+#### Update a Cart Item
+
+- **Endpoint**: `PUT /api/v1/cart/update/:productId`
+- **Description**: Updates the quantity of a product in the user's cart.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "quantity": 3
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Cart item updated successfully."
+  }
+  ```
+
+#### Remove a Cart Item
+
+- **Endpoint**: `DELETE /api/v1/cart/remove/:productId`
+- **Description**: Removes a product from the user's cart.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+    "message": "Cart item removed successfully."
+  }
+  ```
+
+### Category Endpoints
+
+#### Create a New Category
+
+- **Endpoint**: `POST /api/v1/category/create`
+- **Description**: Creates a new category. Restricted to admin users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "name": "Electronics"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Category created successfully."
+  }
+  ```
+
+#### Get All Categories
+
+- **Endpoint**: `GET /api/v1/category/all`
+- **Description**: Retrieves all categories.
+- **Response**:
+  ```json
+  {
+    "message": "Categories retrieved successfully.",
+    "categories": [
+      {
+        "id": "category_id",
+        "name": "Electronics"
+      }
+    ]
+  }
+  ```
+
+#### Update a Category
+
+- **Endpoint**: `PUT /api/v1/category/update/:categoryId`
+- **Description**: Updates a category. Restricted to admin users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "name": "Updated Category Name"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Category updated successfully."
+  }
+  ```
+
+#### Delete a Category
+
+- **Endpoint**: `DELETE /api/v1/category/delete/:categoryId`
+- **Description**: Deletes a category. Restricted to admin users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+    "message": "Category deleted successfully."
+  }
+  ```
+
+### Product Endpoints
+
+#### Create a New Product
+
+- **Endpoint**: `POST /api/v1/product/create`
+- **Description**: Creates a new product. Restricted to vendor users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "name": "Product Name",
+    "price": 100,
+    "category": "category_id",
+    "description": "Product Description"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Product created successfully."
+  }
+  ```
+
+#### Get a Specific Product
+
+- **Endpoint**: `GET /api/v1/product/:productId`
+- **Description**: Retrieves details of a specific product.
+- **Response**:
+  ```json
+  {
+    "message": "Product details retrieved successfully.",
+    "product": {
+      "id": "product_id",
+      "name": "Product Name",
+      "price": 100,
+      "category": "category_id",
+      "description": "Product Description"
+    }
+  }
+  ```
+
+#### Get All Products
+
+- **Endpoint**: `GET /api/v1/product/all`
+- **Description**: Retrieves all products.
+- **Response**:
+  ```json
+  {
+    "message": "Products retrieved successfully.",
+    "products": [
+      {
+        "id": "product_id",
+        "name": "Product Name",
+        "price": 100,
+        "category": "category_id",
+        "description": "Product Description"
+      }
+    ]
+  }
+  ```
+
+#### Update a Product
+
+- **Endpoint**: `PUT /api/v1/product/update/:productId`
+- **Description**: Updates a product. Restricted to vendor users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "name": "Updated Product Name",
+    "price": 120,
+    "description": "Updated Product Description"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Product updated successfully."
+  }
+  ```
+
+#### Delete a Product
+
+- **Endpoint**: `DELETE /api/v1/product/delete/:productId`
+- **Description**: Deletes a product. Restricted to vendor users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+    "message": "Product deleted successfully."
+  }
+  ```
+
+### Order Endpoints
+
+#### Create a New Order
+
+- **Endpoint**: `POST /api/v1/order/create`
+- **Description**: Creates a new order.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "cartId": "cart_id",
+    "shippingAddress": "123 Street, City, Country"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Order created successfully."
+  }
+  ```
+
+#### Get All Orders for a User
+
+- **Endpoint**: `GET /api/v1/order/`
+- **Description**: Retrieves all orders for the authenticated user.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+    "message": "Orders retrieved successfully.",
+    "orders": [
+      {
+        "id": "order_id",
+        "cartId": "cart_id",
+        "shippingAddress": "123 Street, City, Country",
+        "status": "pending"
+      }
+    ]
+  }
+  ```
+
+#### Get Order Details
+
+- **Endpoint**: `GET /api/v1/order/:orderId`
+- **Description**: Retrieves details of a specific order.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+    "message": "Order details retrieved successfully.",
+    "order": {
+      "id": "order_id",
+      "cartId": "cart_id",
+      "shippingAddress": "123 Street, City, Country",
+      "status": "pending"
+    }
+  }
+  ```
+
+#### Update Order Status
+
+- **Endpoint**: `PUT /api/v1/order/update
+
+-status/:orderId`
+
+- **Description**: Updates the status of an order. Restricted to admin users.
+- **Headers**:
+  - `Authorization: Bearer <token>`
+- **Request Body**:
+  ```json
+  {
+    "status": "shipped"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Order status updated successfully."
+  }
+  ```
+
 ## Middleware
 
 ### Authentication
