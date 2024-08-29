@@ -4,6 +4,7 @@ const { ConnectDB } = require("./config/db");
 const cors = require("cors");
 const { userRouter } = require("./routes/user.routes");
 const { categoryRouter } = require("./routes/category.routes");
+const { productRouter } = require("./routes/product.routes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get(`${ENDPOINT}/`, (req, res) => {
 // Other routes
 app.use(`${ENDPOINT}/user`, userRouter);
 app.use(`${ENDPOINT}/category`, categoryRouter);
+app.use(`${ENDPOINT}/product`, productRouter);
 
 // Database connection and server
 ConnectDB()
