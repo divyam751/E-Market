@@ -3,6 +3,10 @@ const { ENDPOINT, PORT, CORS_ORIGIN } = require("./constants");
 const { ConnectDB } = require("./config/db");
 const cors = require("cors");
 const { userRouter } = require("./routes/user.routes");
+const { categoryRouter } = require("./routes/category.routes");
+const { productRouter } = require("./routes/product.routes");
+const { cartRouter } = require("./routes/cart.routes");
+const { orderRouter } = require("./routes/order.routes");
 
 const app = express();
 
@@ -21,6 +25,10 @@ app.get(`${ENDPOINT}/`, (req, res) => {
 
 // Other routes
 app.use(`${ENDPOINT}/user`, userRouter);
+app.use(`${ENDPOINT}/category`, categoryRouter);
+app.use(`${ENDPOINT}/product`, productRouter);
+app.use(`${ENDPOINT}/cart`, cartRouter);
+app.use(`${ENDPOINT}/order`, orderRouter);
 
 // Database connection and server
 ConnectDB()
