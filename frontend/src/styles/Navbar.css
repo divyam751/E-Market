@@ -112,3 +112,40 @@ a {
     display: flex;
   }
 }
+
+.activeUserList {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.navbar-activeUser {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background-color: white;
+}
+.activeUserCircle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: green;
+}
+.navbar-activeUserOptions {
+  border: none;
+  margin-left: -100px;
+  padding: 0px 10px;
+}
+.navbar-activeUserOptions:focus {
+  border: none;
+}
+.Nav-logoutBTN {
+  padding: 20px;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}

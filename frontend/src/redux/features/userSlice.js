@@ -28,6 +28,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/login`, credentials);
+      console.log(response.data.data.user);
       return response.data;
     } catch (error) {
       // Reject with proper error response data
@@ -75,7 +76,7 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.user;
+        state.user = action.payload.data.user;
         state.status = action.payload.status;
         state.statusCode = action.payload.statusCode;
         state.isAuthenticated = false; // User will be authenticated only after login
@@ -97,7 +98,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.user;
+        state.user = action.payload.data.user;
         state.token = action.payload.token;
         state.status = action.payload.status;
         state.statusCode = action.payload.statusCode;

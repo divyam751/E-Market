@@ -5,13 +5,33 @@ import { IoCartOutline, IoSearch } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImCross } from "react-icons/im";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const [hamburger, setHamburger] = useState(true);
+  const [activeUser, setActiveUser] = useState(null);
 
   const navigate = useNavigate();
+
+  const handleLink = () => {
+    setHamburger((prev) => !prev);
+  };
+
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      let username = user.fullname.split(" ")[0];
+      const firstname = username.charAt(0).toUpperCase() + username.slice(1);
+      setActiveUser(firstname);
+      console.log({ firstname });
+    } else {
+      console.log("user not found yet!!");
+    }
+  }, [user]);
 
   return (
     <>
@@ -27,10 +47,15 @@ const Navbar = () => {
           </ul>
 
           <div className="navbar-links-right">
-            <span>
-              <FaRegUser /> <RouterLink to="/login"> Login </RouterLink> /{" "}
-              <RouterLink to="/register"> Register </RouterLink>
-            </span>
+            {isAuthenticated ? (
+              <Dropdown />
+            ) : (
+              <span>
+                <FaRegUser /> <RouterLink to="/login"> Login </RouterLink> /
+                <RouterLink to="/register"> Register </RouterLink>
+              </span>
+            )}
+
             <span>
               <IoSearch />
               <IoCartOutline onClick={() => navigate("/cart")} />
@@ -54,22 +79,41 @@ const Navbar = () => {
         </div>
         <div className="mob-navbar-links">
           <ul className="navbar-links-left mob-navbar-colflex">
-            <li>Home</li>
-            <li>Shop</li>
-
-            <li>About</li>
-            <li>Blog</li>
-            <li>Contact</li>
-            <li>Pages</li>
+            <RouterLink onClick={handleLink} to="/">
+              Home
+            </RouterLink>
+            <RouterLink onClick={handleLink} to="/products">
+              Shop
+            </RouterLink>
+            <RouterLink onClick={handleLink} to="/about">
+              About
+            </RouterLink>
+            <RouterLink onClick={handleLink} to="/blog">
+              Blog
+            </RouterLink>
+            <RouterLink onClick={handleLink} to="/contact">
+              Contact
+            </RouterLink>
           </ul>
 
           <div className="navbar-links-right mob-navbar-colflex">
             <span>
-              <FaRegUser /> Login / Register
+              <FaRegUser />
+              <RouterLink onClick={handleLink} to="/login">
+                Login
+              </RouterLink>
+              /
+              <RouterLink onClick={handleLink} to="/register">
+                Register
+              </RouterLink>
             </span>
             <span>
               <IoSearch />
-              <IoCartOutline />
+              <IoCartOutline
+                onClick={() => {
+                  navigate("/cart"), handleLink();
+                }}
+              />
               <IoIosHeartEmpty />
             </span>
           </div>
