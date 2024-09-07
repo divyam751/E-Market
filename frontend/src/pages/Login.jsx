@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/features/userSlice";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isLoading, error, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,16 +30,31 @@ const Login = () => {
       return;
     }
 
-    // If validation passes, clear the error and proceed
+    // Clear error message if validation passes
     setErrorMessage("");
-    alert("Login successful!");
+
+    // Dispatch loginUser action
+    dispatch(loginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const intervalId = setTimeout(() => {
+        navigate("/");
+      }, 3000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="login-container">
       <div className="login-card">
         <h2>Welcome back!</h2>
+
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {error && <p className="error-message">{error}</p>}
+
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
@@ -53,8 +78,8 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className="login-button">
-            Login
+          <button type="submit" className="login-button" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

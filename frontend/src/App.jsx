@@ -2,6 +2,7 @@ import "./App.css";
 import Banner from "./components/Banner";
 import AllRoutes from "./routes/AllRoutes";
 import Navbar from "./components/Navbar";
+import ReactToast from "./components/ReactToast";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Banner />
       <Navbar />
       <AllRoutes />
+      <ReactToast />
     </div>
   );
 }

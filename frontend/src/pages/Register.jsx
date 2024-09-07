@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/features/userSlice";
+import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 
 const Register = () => {
@@ -6,6 +9,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, error, user, statusCode } = useSelector(
+    (state) => state.user
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,16 +30,41 @@ const Register = () => {
       return;
     }
 
-    // If validation passes, clear the error and proceed
+    // Clear the error message if validation passes
     setErrorMessage("");
-    alert("Login successful!");
+
+    // Dispatch the registerUser action with the form data
+    dispatch(registerUser({ fullname, email, password }));
+
+    // Clear all input fields
+    resetFields();
   };
+
+  const resetFields = () => {
+    setEmail("");
+    setPassword("");
+    setFullname("");
+  };
+
+  useEffect(() => {
+    if (statusCode === 201) {
+      const intervalId = setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [statusCode]);
 
   return (
     <div className="register-container">
       <div className="register-card">
         <h2>Create an account</h2>
+
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {error && <p className="error-message">{error}</p>}
+        {user && <p className="success-message">Registration successful!</p>}
+
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="fullname">Full Name</label>
@@ -65,8 +99,13 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="register-button">
-            Register
+
+          <button
+            type="submit"
+            className="register-button"
+            disabled={isLoading}
+          >
+            {isLoading ? "Registering..." : "Register"}
           </button>
         </form>
       </div>
