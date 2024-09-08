@@ -5,8 +5,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  position: absolute;
-  top: 130px;
+  /* position: absolute;
+  top: 130px; */
+  margin-top: 130px;
 }
 
 .carousel-slide {

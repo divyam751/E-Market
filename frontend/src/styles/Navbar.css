@@ -1,7 +1,7 @@
 .navbar-container {
   width: 100vw;
   height: 80px;
-  padding: var(--wrapper);
+  padding: 0px 50px;
   display: flex;
   align-items: center;
   z-index: 1;

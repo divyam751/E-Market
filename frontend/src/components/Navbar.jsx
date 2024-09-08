@@ -7,12 +7,11 @@ import { ImCross } from "react-icons/im";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const [hamburger, setHamburger] = useState(true);
-  const [activeUser, setActiveUser] = useState(null);
 
   const navigate = useNavigate();
 
@@ -20,18 +19,7 @@ const Navbar = () => {
     setHamburger((prev) => !prev);
   };
 
-  const { isAuthenticated, user } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (user) {
-      let username = user.fullname.split(" ")[0];
-      const firstname = username.charAt(0).toUpperCase() + username.slice(1);
-      setActiveUser(firstname);
-      console.log({ firstname });
-    } else {
-      console.log("user not found yet!!");
-    }
-  }, [user]);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   return (
     <>

@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--wrapper);
+  padding: 0px 50px;
   font-size: 14px;
   z-index: 1;
   position: fixed;
