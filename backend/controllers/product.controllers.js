@@ -51,8 +51,23 @@ const getProduct = async (req, res) => {
 
 // Get all products
 const getAllProducts = async (req, res) => {
+  const { search, sortBy, sortOrder } = req.query;
+
   try {
-    const products = await Product.find({}).populate("category vendor");
+    // Build search query
+    const searchQuery = search
+      ? { name: { $regex: search, $options: "i" } }
+      : {};
+
+    // Build sort query
+    const sortQuery = {};
+    if (sortBy) {
+      sortQuery[sortBy] = sortOrder === "desc" ? -1 : 1;
+    }
+
+    // Fetch products
+    const products = await Product.find(searchQuery).sort(sortQuery);
+
     res
       .status(200)
       .send({ message: "Products retrieved successfully.", products });

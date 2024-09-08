@@ -7,6 +7,7 @@ const { categoryRouter } = require("./routes/category.routes");
 const { productRouter } = require("./routes/product.routes");
 const { cartRouter } = require("./routes/cart.routes");
 const { orderRouter } = require("./routes/order.routes");
+const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.use(`${ENDPOINT}/product`, productRouter);
 app.use(`${ENDPOINT}/cart`, cartRouter);
 app.use(`${ENDPOINT}/order`, orderRouter);
 
+// Error handler
+app.use(errorHandler);
+
 // Database connection and server
 ConnectDB()
   .then(() => {
@@ -37,6 +41,4 @@ ConnectDB()
       console.log(`⚙️  Server is running on port ${PORT}`);
     });
   })
-  .catch((err) =>
-    console.log(`Database connection failed !!! \n ${err.message}`)
-  );
+  .catch((err) => console.log(`Database connection failed !!! \n ${err.message}`));

@@ -20,7 +20,9 @@ const validateUser = [
     .withMessage("Email is required.")
     .isEmail()
     .withMessage("Please provide a valid email address.")
-    .normalizeEmail()
+    .normalizeEmail({
+      gmail_remove_dots: false, // Disable dot removal in Gmail addresses
+    })
     .isLength({ max: 30 })
     .withMessage("Email cannot be more than 30 characters long."),
 
