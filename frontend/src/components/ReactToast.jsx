@@ -4,10 +4,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const ReactToast = () => {
-  const { status, message } = useSelector((state) => state.user);
+  // Get the status and message from user slice
+  const { status: userStatus, message: userMessage } = useSelector(
+    (state) => state.user
+  );
 
-  const successToast = () => {
-    toast.success(`${message}`, {
+  // Get the status from contact slice
+  const { status: contactStatus, message: contactMessage } = useSelector(
+    (state) => state.contact
+  );
+
+  const successToast = (msg) => {
+    toast.success(`${msg}`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -20,8 +28,8 @@ const ReactToast = () => {
     });
   };
 
-  const errorToast = () => {
-    toast.error(`${message}`, {
+  const errorToast = (msg) => {
+    toast.error(`${msg}`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -35,12 +43,21 @@ const ReactToast = () => {
   };
 
   useEffect(() => {
-    if (status === "success") {
-      successToast();
-    } else if (status === "error") {
-      errorToast();
+    // Check user slice status
+    if (userStatus === "success") {
+      successToast(userMessage);
+    } else if (userStatus === "error") {
+      errorToast(userMessage);
     }
-  }, [status]);
+
+    // Check contact slice status
+    if (contactStatus === "success") {
+      successToast(contactMessage);
+    } else if (contactStatus === "error") {
+      errorToast(contactMessage);
+    }
+  }, [userStatus, contactStatus]);
+
   return (
     <ToastContainer
       position="top-right"
