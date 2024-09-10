@@ -7,6 +7,7 @@ const { categoryRouter } = require("./routes/category.routes");
 const { productRouter } = require("./routes/product.routes");
 const { cartRouter } = require("./routes/cart.routes");
 const { orderRouter } = require("./routes/order.routes");
+const { messageRouter } = require("./routes/message.routes");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(`${ENDPOINT}/category`, categoryRouter);
 app.use(`${ENDPOINT}/product`, productRouter);
 app.use(`${ENDPOINT}/cart`, cartRouter);
 app.use(`${ENDPOINT}/order`, orderRouter);
+app.use(`${ENDPOINT}/message`, messageRouter);
 
 // Error handler
 app.use(errorHandler);
